@@ -63,7 +63,22 @@ repos:
 
 ### Claude Code skill
 
-Drop `skills/unsloppify/` into `~/.claude/skills/`, or install via the plugin marketplace once published. Then ask Claude to "unsloppify this draft" and it will invoke the CLI first for the deterministic catches, then do a judgment pass on structures.
+Two ways to install:
+
+**Plugin marketplace** (recommended for Claude Code):
+
+```text
+/plugin marketplace add petems/unsloppify
+/plugin install unsloppify@unsloppify
+```
+
+**Skills CLI** (works with Claude Code, Codex, Cursor, and other agents):
+
+```bash
+npx skills add petems/unsloppify
+```
+
+Then ask the agent to "unsloppify this draft" and it will invoke the CLI first for the deterministic catches, then do a judgment pass on structures.
 
 ### Claude Code output style
 

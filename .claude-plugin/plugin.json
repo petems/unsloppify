@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "unsloppify",
+  "description": "Anti-slop prose linter — Claude skill + Python CLI for stripping AI writing patterns from markdown.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Peter Souter",
+    "email": "peter.souter@datadoghq.com"
+  },
+  "homepage": "https://github.com/petems/unsloppify",
+  "repository": "https://github.com/petems/unsloppify",
+  "license": "MIT",
+  "keywords": ["writing", "prose", "linter", "ai-slop", "markdown"]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "unsloppify",
+  "description": "Strip AI writing patterns from prose. CLI + Claude Code skill.",
+  "owner": {
+    "name": "Peter Souter",
+    "email": "peter.souter@datadoghq.com"
+  },
+  "plugins": [
+    {
+      "name": "unsloppify",
+      "source": "./",
+      "description": "Anti-slop prose linter — punctuation, banned phrases, structural cliches.",
+      "category": "productivity",
+      "keywords": ["writing", "prose", "linter", "ai-slop", "markdown"],
+      "homepage": "https://github.com/petems/unsloppify",
+      "license": "MIT"
+    }
+  ]
+}

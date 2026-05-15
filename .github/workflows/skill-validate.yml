@@ -1,0 +1,77 @@
+name: Skill validate
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  metadata-tests:
+    name: Static metadata tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Set up Python
+        run: uv python install 3.13
+      - run: uv sync --extra dev
+      - run: uv run pytest tests/test_skill_metadata.py -v
+
+  skill-install-smoke:
+    name: npx skills add (codex agent) smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Install skill into isolated $HOME
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          mkdir -p "$FAKE_HOME"
+          # Use codex as the target agent: Claude Code users will install via
+          # /plugin marketplace add (validated separately), so npx skills add
+          # is exercised against a non-Claude agent to broaden coverage.
+          HOME="$FAKE_HOME" npx --yes skills add ./ --all --agent codex --yes
+      - name: Verify installed skill files
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          # The skills CLI documents per-agent destinations; expected codex path
+          # is ~/.codex/skills/<name>/SKILL.md. If the path differs in practice,
+          # this step will fail loud and we adjust.
+          find "$FAKE_HOME" -name SKILL.md -print
+          test -s "$FAKE_HOME/.codex/skills/unsloppify/SKILL.md"
+      - name: Verify skills list shows unsloppify
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          HOME="$FAKE_HOME" npx --yes skills list | tee /tmp/skills-list.txt
+          grep -q "unsloppify" /tmp/skills-list.txt
+
+  claude-plugin-validate:
+    name: claude plugin validate (canonical validator)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Run the Claude Code plugin validator
+        run: |
+          set -euxo pipefail
+          # Validates marketplace.json, plugin.json, and skill frontmatter using
+          # the canonical CLI. Job is marked continue-on-error in case the npm
+          # package name shifts; the metadata-tests job is the load-bearing
+          # check.
+          npx --yes @anthropic-ai/claude-code plugin validate .
