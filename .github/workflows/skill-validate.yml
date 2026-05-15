@@ -39,23 +39,24 @@ jobs:
           # Use codex as the target agent: Claude Code users will install via
           # /plugin marketplace add (validated separately), so npx skills add
           # is exercised against a non-Claude agent to broaden coverage.
-          HOME="$FAKE_HOME" npx --yes skills add ./ --all --agent codex --yes
+          # --global writes into $HOME (so source tree isn't mutated); avoid
+          # --all because it expands to --agent '*' and overrides --agent codex.
+          HOME="$FAKE_HOME" npx --yes skills add ./ --global --agent codex --skill '*' --yes
       - name: Verify installed skill files
         env:
           FAKE_HOME: ${{ runner.temp }}/fakehome
         run: |
           set -euxo pipefail
-          # The skills CLI documents per-agent destinations; expected codex path
-          # is ~/.codex/skills/<name>/SKILL.md. If the path differs in practice,
-          # this step will fail loud and we adjust.
+          # Codex is a "universal" agent in the skills CLI — global installs
+          # land in ~/.agents/skills/<name>/SKILL.md, not ~/.codex/skills/.
           find "$FAKE_HOME" -name SKILL.md -print
-          test -s "$FAKE_HOME/.codex/skills/unsloppify/SKILL.md"
+          test -s "$FAKE_HOME/.agents/skills/unsloppify/SKILL.md"
       - name: Verify skills list shows unsloppify
         env:
           FAKE_HOME: ${{ runner.temp }}/fakehome
         run: |
           set -euxo pipefail
-          HOME="$FAKE_HOME" npx --yes skills list | tee /tmp/skills-list.txt
+          HOME="$FAKE_HOME" npx --yes skills list --global | tee /tmp/skills-list.txt
           grep -q "unsloppify" /tmp/skills-list.txt
 
   claude-plugin-validate:
