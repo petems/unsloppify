@@ -1,0 +1,76 @@
+name: Skill validate
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  metadata-tests:
+    name: Static metadata tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Set up Python
+        run: uv python install 3.13
+      - run: uv sync --extra dev
+      - run: uv run pytest tests/test_skill_metadata.py -v
+
+  skill-install-smoke:
+    name: npx skills add (codex agent) smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Install skill into isolated $HOME
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          mkdir -p "$FAKE_HOME"
+          # Use codex as the target agent: Claude Code users will install via
+          # /plugin marketplace add (validated separately), so npx skills add
+          # is exercised against a non-Claude agent to broaden coverage.
+          # --global writes into $HOME (so source tree isn't mutated); avoid
+          # --all because it expands to --agent '*' and overrides --agent codex.
+          HOME="$FAKE_HOME" npx --yes skills add ./ --global --agent codex --skill '*' --yes
+      - name: Verify installed skill files
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          # Codex is a "universal" agent in the skills CLI — global installs
+          # land in ~/.agents/skills/<name>/SKILL.md, not ~/.codex/skills/.
+          find "$FAKE_HOME" -name SKILL.md -print
+          test -s "$FAKE_HOME/.agents/skills/unsloppify/SKILL.md"
+      - name: Verify skills list shows unsloppify
+        env:
+          FAKE_HOME: ${{ runner.temp }}/fakehome
+        run: |
+          set -euxo pipefail
+          HOME="$FAKE_HOME" npx --yes skills list --global | tee /tmp/skills-list.txt
+          grep -q "unsloppify" /tmp/skills-list.txt
+
+  claude-plugin-validate:
+    name: claude plugin validate (canonical validator)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Run the Claude Code plugin validator
+        run: |
+          set -euxo pipefail
+          # Validates marketplace.json, plugin.json, and skill frontmatter using
+          # the canonical CLI. metadata-tests is the redundant guardrail; this
+          # job blocks merges so manifest regressions can't slip through.
+          npx --yes @anthropic-ai/claude-code plugin validate .
