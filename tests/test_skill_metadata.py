@@ -102,11 +102,13 @@ def test_marketplace_json_required_fields(marketplace: dict[str, Any]) -> None:
     for entry in plugins:
         assert isinstance(entry, dict)
         assert entry.get("name"), "every plugin entry needs a name"
-        assert "source" in entry, "every plugin entry needs a source"
-        if isinstance(entry["source"], str):
-            assert entry["source"].startswith("./"), (
-                f"local plugin source must start with './' (got {entry['source']!r})"
-            )
+        source = entry.get("source")
+        assert isinstance(source, str) and source, (
+            "every plugin entry needs a non-empty string source"
+        )
+        assert source.startswith("./"), (
+            f"local plugin source must start with './' (got {source!r})"
+        )
 
 
 def test_plugin_json_required_fields(plugin: dict[str, Any]) -> None:
