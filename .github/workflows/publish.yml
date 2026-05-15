@@ -1,9 +1,9 @@
-name: CI
+name: Publish
 
 on:
   push:
-    branches: [master]
-  pull_request:
+    tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -26,12 +26,9 @@ jobs:
       - run: uv run ruff check src tests
       - run: uv run mypy src
       - run: uv run pytest -v
-      - name: Dogfood — unsloppify ourselves
-        run: uv run unsloppify --format github README.md AGENTS.md skills/ || true
-        # `|| true` because info-severity findings are expected for now;
-        # set to `--severity error` once we've cleaned the docs.
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,3 +38,16 @@ jobs:
         with:
           name: dist
           path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
