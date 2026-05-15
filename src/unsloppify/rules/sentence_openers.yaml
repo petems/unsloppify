@@ -1,0 +1,97 @@
+category: openers
+# Sentence and paragraph openers flagged as AI tells. Match only when they
+# appear at the start of a line/paragraph (after optional bullet/list markers).
+# These are flagged, not auto-fixed — removing them often breaks the sentence.
+
+rules:
+  - id: openers.moreover
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Moreover,"
+    message: "AI transitional opener. Cut or rewrite the sentence."
+    case_sensitive: true
+
+  - id: openers.furthermore
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Furthermore,"
+    message: "AI transitional opener. Cut or rewrite."
+    case_sensitive: true
+
+  - id: openers.additionally
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Additionally,"
+    message: "AI transitional opener. Use \"Also\" or rewrite."
+    case_sensitive: true
+
+  - id: openers.interestingly
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Interestingly,"
+    message: "AI tell. If it's interesting, show why."
+    case_sensitive: true
+
+  - id: openers.notably
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Notably,"
+    message: "AI tell. Cut."
+    case_sensitive: true
+
+  - id: openers.importantly
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Importantly,"
+    message: "AI tell. If it's important, show why."
+    case_sensitive: true
+
+  - id: openers.indeed
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Indeed,"
+    message: "AI tell. Cut."
+    case_sensitive: true
+
+  - id: openers.overall
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Overall,"
+    message: "AI paragraph opener. Cut or restructure."
+    case_sensitive: true
+
+  - id: openers.certainly
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Certainly,"
+    message: "AI assistant opener. Cut."
+    case_sensitive: true
+
+  - id: openers.absolutely
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Absolutely,"
+    message: "AI assistant opener. Cut."
+    case_sensitive: true
+
+  - id: openers.great-question
+    severity: error
+    pattern: "(?mi)^[ \t>*+-]*Great question[!.]?"
+    message: "AI assistant tell. Cut."
+
+  - id: openers.as-an-ai
+    severity: error
+    pattern: "(?mi)^[ \t>*+-]*As an AI"
+    message: "AI tell. Cut."
+
+  - id: openers.as-a-language-model
+    severity: error
+    pattern: "(?mi)^[ \t>*+-]*As a language model"
+    message: "AI tell. Cut."
+
+  - id: openers.however-its-important
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*However, it'?s important"
+    message: "AI hedge opener. Restructure."
+    case_sensitive: true
+
+  - id: openers.id-be-happy-to
+    severity: warning
+    pattern: "(?mi)^[ \t>*+-]*I'?d be happy to"
+    message: "AI assistant tell. Just do the thing."
+
+  - id: openers.firstly
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*Firstly,"
+    message: "AI listing opener. Use \"First,\" or restructure."
+    case_sensitive: true

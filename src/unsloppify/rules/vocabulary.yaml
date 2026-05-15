@@ -1,0 +1,234 @@
+category: vocabulary
+# Single words flagged across multiple AI-detection studies (Carnegie Mellon 2025,
+# Wikipedia Signs of AI Writing, Buffer 52M post analysis). Adapted from
+# jalaalrd/anti-ai-slop-writing under MIT. Flagged only — replacement is
+# always judgment-dependent.
+
+rules:
+  - id: vocab.delve
+    severity: error
+    pattern: "delv(e|es|ing|ed)"
+    message: "\"Delve\" is the single most-flagged AI vocabulary marker. Use \"examine\" or \"explore\"."
+    word_boundary: true
+
+  - id: vocab.tapestry
+    severity: error
+    pattern: "tapestry"
+    message: "AI cliche. Almost never the right word."
+    word_boundary: true
+
+  - id: vocab.testament
+    severity: warning
+    pattern: "(a |is a )testament to"
+    message: "\"A testament to\" — AI tell."
+
+  - id: vocab.vibrant
+    severity: warning
+    pattern: "vibrant"
+    message: "AI-flavoured adjective. Use a more specific word."
+    word_boundary: true
+
+  - id: vocab.pivotal
+    severity: warning
+    pattern: "pivotal"
+    message: "AI-flavoured adjective. Use \"key\" or \"important\" — or be specific."
+    word_boundary: true
+
+  - id: vocab.crucial
+    severity: info
+    pattern: "crucial"
+    message: "AI-flavoured. Often replaceable with \"key\" or just deletion."
+    word_boundary: true
+
+  - id: vocab.intricate
+    severity: warning
+    pattern: "intricat(e|ies|ely)"
+    message: "AI-flavoured. Use \"complex\" or \"detailed\"."
+    word_boundary: true
+
+  - id: vocab.meticulous
+    severity: warning
+    pattern: "meticulous(ly)?"
+    message: "AI-flavoured. Use \"careful\" or \"thorough\"."
+    word_boundary: true
+
+  - id: vocab.bolster
+    severity: warning
+    pattern: "bolster(s|ed|ing)?"
+    message: "AI-flavoured. Use \"strengthen\" or \"support\"."
+    word_boundary: true
+
+  - id: vocab.garner
+    severity: warning
+    pattern: "garner(s|ed|ing)?"
+    message: "AI-flavoured. Use \"gain\" or \"receive\"."
+    word_boundary: true
+
+  - id: vocab.underscore
+    severity: warning
+    pattern: "underscor(e|es|ed|ing)"
+    message: "AI-flavoured. Use \"shows\" or \"highlights\"."
+    word_boundary: true
+
+  - id: vocab.interplay
+    severity: warning
+    pattern: "interplay"
+    message: "AI-flavoured. Use \"relationship\" or \"interaction\"."
+    word_boundary: true
+
+  - id: vocab.multifaceted
+    severity: warning
+    pattern: "multifaceted"
+    message: "AI-flavoured. Use \"complex\" or just be specific."
+    word_boundary: true
+
+  - id: vocab.nuanced
+    severity: info
+    pattern: "nuanced"
+    message: "Often filler. If it is genuinely nuanced, show the nuance."
+    word_boundary: true
+
+  - id: vocab.foster
+    severity: warning
+    pattern: "foster(s|ed|ing)?"
+    message: "AI-flavoured. Use \"build\", \"create\", or \"encourage\"."
+    word_boundary: true
+
+  - id: vocab.leverage-verb
+    severity: warning
+    pattern: "leverag(e|es|ed|ing)"
+    message: "Use \"use\" instead of \"leverage\"."
+    word_boundary: true
+
+  - id: vocab.utilize
+    severity: warning
+    pattern: "utiliz(e|es|ed|ing|ation)"
+    message: "Use \"use\" instead of \"utilize\"."
+    fixable: true
+    replacement: "use"
+    word_boundary: true
+
+  - id: vocab.commence
+    severity: warning
+    pattern: "commenc(e|es|ed|ing|ement)"
+    message: "Use \"start\" or \"begin\"."
+    word_boundary: true
+
+  - id: vocab.facilitate
+    severity: warning
+    pattern: "facilitat(e|es|ed|ing)"
+    message: "Use \"help\" or \"enable\" — or name the actor."
+    word_boundary: true
+
+  - id: vocab.encompass
+    severity: warning
+    pattern: "encompass(es|ed|ing)?"
+    message: "AI-flavoured. Use \"include\" or \"cover\"."
+    word_boundary: true
+
+  - id: vocab.paramount
+    severity: warning
+    pattern: "paramount"
+    message: "AI-flavoured. Use \"critical\" or just be specific."
+    word_boundary: true
+
+  - id: vocab.groundbreaking
+    severity: warning
+    pattern: "groundbreaking"
+    message: "Hype. Be specific about what is new."
+    word_boundary: true
+
+  - id: vocab.cutting-edge
+    severity: warning
+    pattern: "cutting[- ]edge"
+    message: "Hype. Be specific."
+    word_boundary: true
+
+  - id: vocab.transformative
+    severity: warning
+    pattern: "transformative"
+    message: "Hype. Show the transformation, don't label it."
+    word_boundary: true
+
+  - id: vocab.revolutionize
+    severity: warning
+    pattern: "revolutioni[sz](e|es|ed|ing)"
+    message: "Hype. Be specific."
+    word_boundary: true
+
+  - id: vocab.seamless
+    severity: warning
+    pattern: "seamless(ly)?"
+    message: "Hype. Show the seams aren't there, don't claim it."
+    word_boundary: true
+
+  - id: vocab.robust
+    severity: info
+    pattern: "robust"
+    message: "Often filler outside engineering. Be specific."
+    word_boundary: true
+
+  - id: vocab.comprehensive
+    severity: info
+    pattern: "comprehensive"
+    message: "Often filler when describing one's own output."
+    word_boundary: true
+
+  - id: vocab.endeavor
+    severity: warning
+    pattern: "endeavou?r(s|ed|ing)?"
+    message: "AI-flavoured. Use \"try\" or \"effort\"."
+    word_boundary: true
+
+  - id: vocab.aforementioned
+    severity: warning
+    pattern: "aforementioned"
+    message: "Stilted. Use \"the\" or name the thing again."
+    word_boundary: true
+
+  - id: vocab.harness
+    severity: warning
+    pattern: "harness(es|ed|ing)?"
+    message: "AI-flavoured. Use \"use\"."
+    word_boundary: true
+
+  - id: vocab.spearhead
+    severity: warning
+    pattern: "spearhead(s|ed|ing)?"
+    message: "AI-flavoured. Use \"lead\"."
+    word_boundary: true
+
+  - id: vocab.navigating
+    severity: warning
+    pattern: "navigat(e|es|ed|ing) (the|a|an|complex|complexities|challenges|landscape|world)"
+    message: "Figurative \"navigate\" is an AI tell. Use \"handle\" or be specific."
+
+  - id: vocab.showcase
+    severity: info
+    pattern: "showcas(e|es|ed|ing)"
+    message: "Often filler. Use \"show\" or be specific."
+    word_boundary: true
+
+  - id: vocab.unprecedented
+    severity: warning
+    pattern: "unprecedented"
+    message: "Hype. Be specific about what is new."
+    word_boundary: true
+
+  - id: vocab.remarkable
+    severity: info
+    pattern: "remarkable"
+    message: "Vague. Show why it's remarkable."
+    word_boundary: true
+
+  - id: vocab.profound
+    severity: info
+    pattern: "profound(ly)?"
+    message: "Vague intensifier."
+    word_boundary: true
+
+  - id: vocab.empower
+    severity: warning
+    pattern: "empower(s|ed|ing|ment)?"
+    message: "Corporate hype. Use \"enable\" or name the specific capability."
+    word_boundary: true

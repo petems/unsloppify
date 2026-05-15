@@ -1,0 +1,303 @@
+category: phrases
+# Banned phrases. Most are flagged only (fixable: false) because replacement
+# requires judgment. A handful of business-jargon swaps from stop-slop's table
+# are safe enough to auto-fix.
+
+rules:
+  # --- Throat-clearing openers (flagged) ---
+  - id: phrases.heres-the-thing
+    severity: warning
+    pattern: "here'?s the thing"
+    message: "Throat-clearing opener. Cut it and state the point directly."
+
+  - id: phrases.heres-what
+    severity: warning
+    pattern: "here'?s (what|why|this|that|the|how)"
+    message: "\"Here's what/this/that\" is throat-clearing. State the point directly."
+
+  - id: phrases.uncomfortable-truth
+    severity: warning
+    pattern: "the uncomfortable truth (is|about)"
+    message: "Throat-clearing. State the truth without announcing it."
+
+  - id: phrases.it-turns-out
+    severity: warning
+    pattern: "it turns out( that)?"
+    message: "Throat-clearing opener. Drop it."
+
+  - id: phrases.let-me-be-clear
+    severity: warning
+    pattern: "let me be clear"
+    message: "Performative emphasis. Just say the thing."
+
+  - id: phrases.truth-is
+    severity: warning
+    pattern: "the truth is,"
+    message: "Throat-clearing. Cut it."
+
+  - id: phrases.honest
+    severity: warning
+    pattern: "i'?m going to be honest"
+    message: "Throat-clearing. Be honest by default."
+
+  # --- Emphasis crutches ---
+  - id: phrases.full-stop
+    severity: warning
+    pattern: "(full stop|period)\\."
+    message: "Emphasis crutch. The reader heard you the first time."
+
+  - id: phrases.let-that-sink-in
+    severity: error
+    pattern: "let that sink in"
+    message: "Emphasis crutch. Delete."
+
+  - id: phrases.this-matters-because
+    severity: warning
+    pattern: "this matters because"
+    message: "If it matters, show why — don't announce it."
+
+  - id: phrases.make-no-mistake
+    severity: warning
+    pattern: "make no mistake"
+    message: "Emphasis crutch. Delete."
+
+  # --- Business jargon (fixable swaps from stop-slop's table) ---
+  - id: phrases.deep-dive
+    severity: warning
+    pattern: "deep dive"
+    message: "Business jargon. Use \"examination\" or \"analysis\"."
+    fixable: true
+    replacement: "examination"
+    word_boundary: true
+
+  - id: phrases.lean-into
+    severity: warning
+    pattern: "lean into"
+    message: "Business jargon. Use \"accept\" or \"embrace\"."
+    fixable: true
+    replacement: "embrace"
+    word_boundary: true
+
+  - id: phrases.circle-back
+    severity: warning
+    pattern: "circle back"
+    message: "Business jargon. Use \"return to\" or \"revisit\"."
+    fixable: true
+    replacement: "revisit"
+    word_boundary: true
+
+  - id: phrases.double-down
+    severity: warning
+    pattern: "double down"
+    message: "Business jargon. Use \"commit\" or \"increase\"."
+    word_boundary: true
+
+  - id: phrases.moving-forward
+    severity: warning
+    pattern: "moving forward"
+    message: "Business jargon. Use \"next\" or \"from now on\"."
+    fixable: true
+    replacement: "next"
+    word_boundary: true
+
+  - id: phrases.on-the-same-page
+    severity: warning
+    pattern: "on the same page"
+    message: "Business jargon. Use \"aligned\" or \"in agreement\"."
+    word_boundary: true
+
+  - id: phrases.touch-base
+    severity: warning
+    pattern: "touch base"
+    message: "Business jargon. Use \"talk\" or \"check in\"."
+    word_boundary: true
+
+  - id: phrases.game-changer
+    severity: warning
+    pattern: "game[- ]chang(er|ing)"
+    message: "Hype word. Be specific about what changed."
+    word_boundary: true
+
+  - id: phrases.move-the-needle
+    severity: warning
+    pattern: "move the needle"
+    message: "Business jargon. Name the specific metric."
+    word_boundary: true
+
+  - id: phrases.bridge-the-gap
+    severity: warning
+    pattern: "bridge the gap"
+    message: "Business cliche. Name the specific gap."
+    word_boundary: true
+
+  # --- "In today's X" family ---
+  - id: phrases.in-todays
+    severity: error
+    pattern: "in today'?s [a-z-]+ (world|landscape|economy|environment|market)"
+    message: "Cliche AI opener. Cut the entire phrase."
+
+  - id: phrases.in-a-world-where
+    severity: warning
+    pattern: "in a world where"
+    message: "Cliche opener. Cut."
+
+  - id: phrases.at-the-end-of-the-day
+    severity: warning
+    pattern: "at the end of the day"
+    message: "Filler. Cut."
+
+  - id: phrases.at-its-core
+    severity: warning
+    pattern: "at its core"
+    message: "Filler. Name the core thing directly."
+
+  - id: phrases.when-it-comes-to
+    severity: warning
+    pattern: "when it comes to"
+    message: "Filler. Cut."
+
+  - id: phrases.its-worth-noting
+    severity: warning
+    pattern: "it'?s worth noting( that)?"
+    message: "Filler. If it's worth noting, note it without the preamble."
+
+  - id: phrases.its-important-to-note
+    severity: warning
+    pattern: "it'?s important to note( that)?"
+    message: "Filler. Cut."
+
+  - id: phrases.bottom-line
+    severity: warning
+    pattern: "the bottom line is"
+    message: "Filler. State the bottom line directly."
+
+  - id: phrases.without-further-ado
+    severity: warning
+    pattern: "without further ado"
+    message: "Cliche. Cut."
+
+  - id: phrases.in-a-nutshell
+    severity: warning
+    pattern: "in a nutshell"
+    message: "Cliche. Cut."
+
+  - id: phrases.in-conclusion
+    severity: warning
+    pattern: "in conclusion,"
+    message: "Don't announce your conclusion. State it."
+
+  # --- "Let's dive in" family ---
+  - id: phrases.lets-dive
+    severity: error
+    pattern: "let'?s (dive in|dive deeper|delve into)"
+    message: "Cliche AI opener. Cut."
+
+  - id: phrases.dive-into
+    severity: warning
+    pattern: "dive into"
+    message: "Cliche AI verb. Use \"examine\" or \"explore\"."
+    word_boundary: true
+
+  # --- Pull-quote AI tropes ---
+  - id: phrases.not-just-x-but-y
+    severity: warning
+    pattern: "not just [a-z]+,? but"
+    message: "Additive-hedge structure. State the point directly."
+
+  - id: phrases.its-not-just-about
+    severity: warning
+    pattern: "it'?s not just about"
+    message: "Pull-quote setup. Cut."
+
+  - id: phrases.where-x-comes-in
+    severity: warning
+    pattern: "this is where [a-z]+ comes in"
+    message: "Pull-quote setup. Cut."
+
+  - id: phrases.whether-youre
+    severity: warning
+    pattern: "whether you'?re a"
+    message: "Audience-pandering opener. Cut."
+
+  - id: phrases.from-x-to-y
+    severity: info
+    pattern: "(?<![\\w])[Ff]rom [a-z]+ to [a-z]+(?![\\w])"
+    message: "\"From X to Y\" range opener. Often a cliche; verify it's earning its place."
+
+  # --- Customer-service AI tells ---
+  - id: phrases.hope-this-helps
+    severity: warning
+    pattern: "i hope this helps"
+    message: "Customer-service tell. Cut."
+
+  - id: phrases.hope-finds-you
+    severity: error
+    pattern: "i hope this (email )?finds you well"
+    message: "Email-AI tell. Cut."
+
+  - id: phrases.dont-hesitate
+    severity: warning
+    pattern: "please don'?t hesitate to reach out"
+    message: "Customer-service tell. Cut or rewrite plainly."
+
+  - id: phrases.as-per-my-last
+    severity: warning
+    pattern: "as per my last (email|message)"
+    message: "Passive-aggressive AI tell."
+
+  - id: phrases.rest-assured
+    severity: warning
+    pattern: "rest assured"
+    message: "Customer-service tell. Cut."
+
+  - id: phrases.it-goes-without
+    severity: warning
+    pattern: "it goes without saying"
+    message: "If it goes without saying, don't say it."
+
+  - id: phrases.thought-leader
+    severity: warning
+    pattern: "thought leader(ship)?"
+    message: "LinkedIn buzzword."
+
+  - id: phrases.synergy
+    severity: warning
+    pattern: "synerg(y|ies)"
+    message: "Corporate buzzword."
+    word_boundary: true
+
+  - id: phrases.pain-points
+    severity: warning
+    pattern: "pain points?"
+    message: "Buzzword. Name the specific problem."
+
+  # --- "Buckle up" / hype openers ---
+  - id: phrases.buckle-up
+    severity: warning
+    pattern: "buckle up"
+    message: "Hype opener. Cut."
+
+  - id: phrases.take-it-to-next-level
+    severity: warning
+    pattern: "take it to the next level"
+    message: "Hype cliche. Cut."
+
+  - id: phrases.unlock-the-power
+    severity: warning
+    pattern: "unlock the power of"
+    message: "Marketing hype. Cut."
+
+  - id: phrases.elevate-your
+    severity: warning
+    pattern: "elevate your"
+    message: "Marketing hype. Cut."
+
+  - id: phrases.supercharge-your
+    severity: warning
+    pattern: "supercharge your"
+    message: "Marketing hype. Cut."
+
+  - id: phrases.streamline-your
+    severity: warning
+    pattern: "streamline your"
+    message: "Marketing hype. Cut."

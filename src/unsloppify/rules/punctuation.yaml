@@ -1,0 +1,75 @@
+category: punctuation
+rules:
+  - id: punct.em-dash
+    severity: error
+    pattern: "—"
+    message: "Em dash (—). Replace with a comma, period, semicolon, or 'and'."
+    fixable: true
+    replacement: ", "
+    examples:
+      - "He was — and remained — uncertain."
+
+  - id: punct.en-dash-prose
+    severity: warning
+    pattern: " – "
+    message: "En dash (–) used in prose. Replace with a comma or hyphen."
+    fixable: true
+    replacement: " - "
+    examples:
+      - "He was tired – but happy."
+
+  - id: punct.smart-double-quote-left
+    severity: warning
+    pattern: "“"
+    message: "Curly opening double quote. Use a straight \"."
+    fixable: true
+    replacement: '"'
+
+  - id: punct.smart-double-quote-right
+    severity: warning
+    pattern: "”"
+    message: "Curly closing double quote. Use a straight \"."
+    fixable: true
+    replacement: '"'
+
+  - id: punct.smart-single-quote-left
+    severity: warning
+    pattern: "‘"
+    message: "Curly opening single quote. Use a straight '."
+    fixable: true
+    replacement: "'"
+
+  - id: punct.smart-single-quote-right
+    severity: warning
+    pattern: "’"
+    message: "Curly closing single quote / apostrophe. Use a straight '."
+    fixable: true
+    replacement: "'"
+
+  - id: punct.ellipsis-char
+    severity: warning
+    pattern: "…"
+    message: "Ellipsis character (…). Use three periods."
+    fixable: true
+    replacement: "..."
+
+  - id: punct.nbsp
+    severity: warning
+    pattern: " "
+    message: "Non-breaking space. Use a regular space."
+    fixable: true
+    replacement: " "
+
+  - id: punct.zero-width-space
+    severity: error
+    pattern: "[​‌‍﻿]"
+    message: "Zero-width or invisible character — common AI-output artifact."
+    fixable: true
+    replacement: ""
+
+  - id: punct.double-exclamation
+    severity: warning
+    pattern: "!{2,}"
+    message: "Multiple exclamation marks. One is enough; none is usually better."
+    fixable: true
+    replacement: "!"

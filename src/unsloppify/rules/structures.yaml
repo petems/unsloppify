@@ -1,0 +1,119 @@
+category: structures
+# Structural patterns from stop-slop's references/structures.md. Adapted under
+# MIT. All flagged only — auto-fixing structure is unsafe.
+
+rules:
+  - id: structures.binary-contrast-not-but
+    severity: warning
+    pattern: "[Nn]ot because [^.,]+,?\\s*[Bb]ut because"
+    message: "Binary contrast (\"Not because X, but because Y\"). State Y directly."
+
+  - id: structures.binary-contrast-isnt-its
+    severity: warning
+    pattern: "[Tt]he (problem|answer|question|issue|point) isn'?t [^.,]+\\. [Ii]t'?s"
+    message: "Formulaic binary reframe. State the point directly."
+
+  - id: structures.binary-contrast-not-x-but-y
+    severity: warning
+    pattern: "(?<![\\w])[Nn]ot [a-z]+,?\\s+but\\s+[a-z]+"
+    message: "\"Not X, but Y\" structure. State Y directly."
+
+  - id: structures.it-feels-like-x-its-actually-y
+    severity: warning
+    pattern: "[Ii]t feels like [^.]+\\. [Ii]t'?s actually"
+    message: "Setup/reveal cliche. State the actual thing."
+
+  - id: structures.thats-it-thats-the
+    severity: error
+    pattern: "[Tt]hat'?s it\\.\\s+[Tt]hat'?s the"
+    message: "Performative-simplicity fragmentation. Use one sentence."
+
+  - id: structures.what-if-rhetorical
+    severity: warning
+    pattern: "(?m)^[ \t>*+-]*What if [^?]+\\?"
+    message: "Socratic rhetorical setup. Make the claim directly."
+
+  - id: structures.heres-what-i-mean
+    severity: warning
+    pattern: "[Hh]ere'?s what I mean:?"
+    message: "Redundant preview. Just say it."
+
+  - id: structures.think-about-it
+    severity: warning
+    pattern: "[Tt]hink about it[:.]"
+    message: "Condescending prompt. Cut."
+
+  - id: structures.and-thats-okay
+    severity: warning
+    pattern: "[Aa]nd that'?s okay\\."
+    message: "Unnecessary permission. Cut."
+
+  - id: structures.passive-was-created
+    severity: info
+    pattern: "(?<![\\w])(was|were|is|are|been|being) (created|made|reached|believed|considered|found) (by|to)"
+    message: "Passive construction. Name the actor."
+
+  - id: structures.lazy-extreme-always
+    severity: info
+    pattern: "(?<![\\w])always (true|works|fails|happens|the case)"
+    message: "Lazy extreme. Be specific."
+
+  - id: structures.lazy-extreme-never
+    severity: info
+    pattern: "(?<![\\w])never (true|works|fails|happens|the case)"
+    message: "Lazy extreme. Be specific."
+
+  - id: structures.lazy-extreme-everyone
+    severity: info
+    pattern: "(?<![\\w])(everyone|everybody|nobody) (knows|agrees|does|wants)"
+    message: "Lazy extreme. Use specifics instead of sweeping claims."
+
+  - id: structures.adverb-really
+    severity: info
+    pattern: "(?<![\\w])really\\s+[a-z]+"
+    message: "Empty intensifier \"really\". Cut."
+
+  - id: structures.adverb-just
+    severity: info
+    pattern: "(?<![\\w])just\\s+[a-z]+"
+    message: "Filler \"just\". Usually cuttable."
+
+  - id: structures.adverb-literally
+    severity: warning
+    pattern: "(?<![\\w])literally\\s+[a-z]+"
+    message: "\"Literally\" is almost always wrong. Cut."
+
+  - id: structures.adverb-genuinely
+    severity: warning
+    pattern: "(?<![\\w])genuinely\\s+[a-z]+"
+    message: "Filler adverb. Cut."
+
+  - id: structures.adverb-actually
+    severity: info
+    pattern: "(?<![\\w])actually\\s+[a-z]+"
+    message: "Often filler. Cut unless it's load-bearing."
+
+  - id: structures.three-item-list
+    severity: info
+    pattern: "(?<![\\w])([A-Za-z]+), ([A-Za-z]+),? (and|or) ([A-Za-z]+)"
+    message: "Three-item list (AI default). Try two items, or four. See if three is genuine."
+
+  - id: structures.thread-opener
+    severity: error
+    pattern: "(?m)^(🧵|Thread:|A thread:?)"
+    message: "Thread opener — AI/influencer tell. Cut."
+
+  - id: structures.heres-the-deal
+    severity: warning
+    pattern: "[Hh]ere'?s the deal[:.]"
+    message: "Throat-clearing. Cut."
+
+  - id: structures.spoiler-plot-twist
+    severity: warning
+    pattern: "(?mi)^[ \t>*+-]*(Spoiler|Plot twist):"
+    message: "Meta-commentary opener. Cut."
+
+  - id: structures.you-already-know
+    severity: warning
+    pattern: "[Yy]ou already know this,? but"
+    message: "Meta-commentary. Cut or restructure."
