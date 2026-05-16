@@ -1,10 +1,41 @@
 <script>
 	let copied = $state('');
+	let copyResetTimer;
 
 	async function copy(text, id) {
-		await navigator.clipboard.writeText(text);
-		copied = id;
-		setTimeout(() => (copied = ''), 2000);
+		clearTimeout(copyResetTimer);
+
+		try {
+			if (navigator.clipboard?.writeText) {
+				await navigator.clipboard.writeText(text);
+			} else {
+				fallbackCopy(text);
+			}
+
+			copied = id;
+		} catch (error) {
+			console.error('Failed to copy to clipboard:', error);
+			copied = `${id}-error`;
+		}
+
+		copyResetTimer = setTimeout(() => (copied = ''), 2000);
+	}
+
+	function fallbackCopy(text) {
+		const textarea = document.createElement('textarea');
+		textarea.value = text;
+		textarea.setAttribute('readonly', '');
+		textarea.style.position = 'fixed';
+		textarea.style.opacity = '0';
+		document.body.appendChild(textarea);
+		textarea.select();
+
+		const copied = document.execCommand('copy');
+		textarea.remove();
+
+		if (!copied) {
+			throw new Error('Legacy clipboard copy failed');
+		}
 	}
 </script>
 
@@ -37,7 +68,7 @@
 					<span class="cmd-prompt">$</span>
 					<code>uvx unsloppify draft.md</code>
 					<button onclick={() => copy('uvx unsloppify draft.md', 'uvx')}>
-						{copied === 'uvx' ? 'copied' : 'copy'}
+						{copied === 'uvx' ? 'copied' : copied === 'uvx-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>
@@ -52,7 +83,7 @@
 					<span class="cmd-prompt">$</span>
 					<code>pipx install unsloppify</code>
 					<button onclick={() => copy('pipx install unsloppify', 'pipx')}>
-						{copied === 'pipx' ? 'copied' : 'copy'}
+						{copied === 'pipx' ? 'copied' : copied === 'pipx-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>
@@ -67,14 +98,14 @@
 					<span class="cmd-prompt">/</span>
 					<code>plugin marketplace add petems/unsloppify</code>
 					<button onclick={() => copy('/plugin marketplace add petems/unsloppify', 'plugin')}>
-						{copied === 'plugin' ? 'copied' : 'copy'}
+						{copied === 'plugin' ? 'copied' : copied === 'plugin-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 				<div class="cmd">
 					<span class="cmd-prompt">/</span>
 					<code>plugin install unsloppify@unsloppify</code>
 					<button onclick={() => copy('/plugin install unsloppify@unsloppify', 'plugin-install')}>
-						{copied === 'plugin-install' ? 'copied' : 'copy'}
+						{copied === 'plugin-install' ? 'copied' : copied === 'plugin-install-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>
@@ -89,7 +120,7 @@
 					<span class="cmd-prompt">$</span>
 					<code>npx skills add petems/unsloppify</code>
 					<button onclick={() => copy('npx skills add petems/unsloppify', 'skills')}>
-						{copied === 'skills' ? 'copied' : 'copy'}
+						{copied === 'skills' ? 'copied' : copied === 'skills-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>
@@ -108,7 +139,7 @@
     hooks:
       - id: unsloppify</code>
 					<button onclick={() => copy('repos:\n  - repo: https://github.com/petems/unsloppify\n    rev: v0.1.0\n    hooks:\n      - id: unsloppify', 'precommit')}>
-						{copied === 'precommit' ? 'copied' : 'copy'}
+						{copied === 'precommit' ? 'copied' : copied === 'precommit-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>
@@ -130,7 +161,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: uvx unsloppify docs/ --format github</code>
 					<button onclick={() => copy('name: prose\non: [pull_request]\njobs:\n  unsloppify:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: uvx unsloppify docs/ --format github', 'github-actions')}>
-						{copied === 'github-actions' ? 'copied' : 'copy'}
+						{copied === 'github-actions' ? 'copied' : copied === 'github-actions-error' ? 'failed' : 'copy'}
 					</button>
 				</div>
 			</div>

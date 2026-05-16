@@ -41,7 +41,7 @@
 	--stet: oklch(0.88 0.135 92);
 
 	/* Type */
-	--serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+	--serif: 'Fraunces', georgia, 'Times New Roman', serif;
 	--sans: 'Inter', system-ui, -apple-system, sans-serif;
 	--mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
 
