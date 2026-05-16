@@ -1,0 +1,7 @@
+- id: unsloppify
+  name: unsloppify
+  description: Strip AI slop from markdown prose
+  entry: unsloppify --severity error
+  language: python
+  language_version: python3.11
+  files: \.(md|markdown|mdx)$

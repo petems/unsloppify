@@ -47,13 +47,26 @@ Exit codes: `0` clean, `1` findings present, `2` invocation error.
 
 ### Pre-commit
 
+Works with `pre-commit` and `prek`:
+
 ```yaml
 repos:
   - repo: https://github.com/petems/unsloppify
-    rev: v0.1.0
+    rev: v0.1.1
     hooks:
       - id: unsloppify
 ```
+
+With `prek`:
+
+```bash
+prek install
+prek run --all-files
+```
+
+The hook creates a Python 3.11 environment. If your Git config uses a global
+`core.hooksPath`, make sure that global hook runner chains into
+`.git/hooks/pre-commit`, or Git will not invoke the generated hook.
 
 ### GitHub Actions
 

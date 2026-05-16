@@ -1,6 +1,6 @@
 [project]
 name = "unsloppify"
-version = "0.1.0"
+version = "0.1.1"
 description = "Strip AI slop from prose. CLI + Claude Code skill for hard-locking em dashes, banned phrases, and structural cliches in markdown."
 readme = "README.md"
 license = { text = "MIT" }
