@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>unsloppify -- OG image template</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,700&family=Inter:wght@500;600&family=JetBrains+Mono:wght@500&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			* { box-sizing: border-box; margin: 0; padding: 0; }
+			body {
+				width: 1200px;
+				height: 630px;
+				background: #F8F5EF;
+				font-family: 'Inter', sans-serif;
+				color: #1A1A1F;
+				padding: 80px 96px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+				overflow: hidden;
+			}
+			.brand {
+				font-family: 'JetBrains Mono', monospace;
+				font-size: 20px;
+				font-weight: 600;
+				letter-spacing: -0.01em;
+				color: #1A1A1F;
+			}
+			h1 {
+				font-family: 'Fraunces', Georgia, serif;
+				font-size: 110px;
+				font-weight: 900;
+				line-height: 0.98;
+				letter-spacing: -0.04em;
+				max-width: 900px;
+			}
+			.slop {
+				font-style: italic;
+				position: relative;
+				display: inline-block;
+			}
+			.slop::after {
+				content: '';
+				position: absolute;
+				top: 53%;
+				left: -2%;
+				width: 104%;
+				height: 9px;
+				background: #C13815;
+				border-radius: 6px;
+			}
+			.sub {
+				font-size: 22px;
+				color: #6B6760;
+				max-width: 760px;
+				line-height: 1.5;
+			}
+			.foot {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				font-size: 18px;
+				color: #6B6760;
+			}
+			.foot strong {
+				color: #1B2A4E;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div class="brand">unsloppify</div>
+		</div>
+		<div>
+			<h1>
+				Strip AI <span class="slop">slop</span><br />from your prose.
+			</h1>
+		</div>
+		<div>
+			<p class="sub">
+				A fast CLI prose linter for markdown, plus a Claude Code skill and
+				output-style for the judgment calls a regex can't make.
+			</p>
+			<br />
+			<div class="foot">
+				<span><strong>uvx unsloppify</strong> draft.md</span>
+				<span>github.com/petems/unsloppify</span>
+			</div>
+		</div>
+	</body>
+</html>
